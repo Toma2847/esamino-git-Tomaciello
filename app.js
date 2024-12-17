@@ -101,6 +101,7 @@ const renderTodos = (filteredTodos) => {
     });
 };
 
+
 // Funzione per modificare titolo e categoria di un TODO
 export const editTodo = (id, newTitle, newCategory) => {
     const todoItem = todos.find(todo => todo.id === id);
@@ -111,6 +112,18 @@ export const editTodo = (id, newTitle, newCategory) => {
     }
     return null;
 }
+
+
+const updateTodoCounters = () => {
+    const completedCount = todos.filter(todo => todo.completed).length;
+    const notCompletedCount = todos.filter(todo => !todo.completed).length;
+
+    // Aggiorniamo i conteggi nel DOM
+    document.getElementById('completedCount').textContent = `Completati: ${completedCount}`;
+    document.getElementById('notCompletedCount').textContent = `Non Completati: ${notCompletedCount}`;
+};
+
+updateTodoCounters();
 
 
 // Carica e visualizza i Todo iniziali
