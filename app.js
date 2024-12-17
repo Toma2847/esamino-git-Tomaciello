@@ -1,6 +1,13 @@
 let todos = [];
 
-
+// Funzione per caricare i Todo dal localStorage
+const loadTodos = () => {
+    const storedTodos = localStorage.getItem('todos');
+    if (storedTodos) {
+        return JSON.parse(storedTodos);
+    }
+    return [];
+};
 
 // Funzione per salvare i Todo nel localStorage
 const saveTodos = () => {
@@ -95,5 +102,5 @@ const renderTodos = (filteredTodos) => {
 };
 
 // Carica e visualizza i Todo iniziali
-
+todos = loadTodos();
 renderTodos(todos);
