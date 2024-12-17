@@ -101,6 +101,17 @@ const renderTodos = (filteredTodos) => {
     });
 };
 
+const updateTodoCounters = () => {
+    const completedCount = todos.filter(todo => todo.completed).length;
+    const notCompletedCount = todos.filter(todo => !todo.completed).length;
+
+    // Aggiorniamo i conteggi nel DOM
+    document.getElementById('completedCount').textContent = `Completati: ${completedCount}`;
+    document.getElementById('notCompletedCount').textContent = `Non Completati: ${notCompletedCount}`;
+};
+
+updateTodoCounters();
+
 // Carica e visualizza i Todo iniziali
 todos = loadTodos();
 renderTodos(todos);
