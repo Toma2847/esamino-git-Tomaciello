@@ -20,3 +20,11 @@ export const deleteTodo = (id) => {
     return null;
 }
 
+export const toggleComplete = (id) => {
+    const todo = todos.find(todo => todo.id === id);
+    if(todo){
+        todo.completed = !todo.completed;
+        return todo;
+    }
+    return null;
+}
