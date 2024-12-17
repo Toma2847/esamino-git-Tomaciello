@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Todo</title>
+</head>
+<body>
+    <h1>Gestione TODO</h1>
+    <div class="container">
+        <form id="addTodoForm">
+            <input type="text" id="todoTitle" placeholder="Titolo del TODO" required>
+            <input type="text" id="todoCategory" placeholder="Categoria del TODO" required>
+            <button type="submit">Aggiungi TODO</button>
+        </form>
+
+        
+        <div class="filters">
+            <button id="showAll">Tutti</button>
+            <button id="showCompleted">Completati</button>
+            <button id="showNotCompleted">Non Completati</button>
+            <input type="text" id="filterCategory" placeholder="Categoria...">
+            <button id="filterByCategory">Filtra Categoria</button>
+        </div>
+
+        
+        <ul id="todoList" class="todo-list"></ul>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

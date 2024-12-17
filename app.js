@@ -28,3 +28,14 @@ export const toggleComplete = (id) => {
     }
     return null;
 }
+
+export const filterTodos=(filterType)=> {
+    if (filterType === 'completed') {
+        return todos.filter(todo => todo.completed);
+    } else if (filterType === 'notCompleted') {
+        return todos.filter(todo => !todo.completed);
+    } else if (filterType === 'category') {
+        return (category) => todos.filter(todo => todo.category === category);
+    }
+    return todos;
+}
