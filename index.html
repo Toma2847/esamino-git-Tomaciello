@@ -4,29 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Todo</title>
+    
 </head>
 <body>
-    <h1>Gestione TODO</h1>
-    <div class="container">
-        <form id="addTodoForm">
-            <input type="text" id="todoTitle" placeholder="Titolo del TODO" required>
-            <input type="text" id="todoCategory" placeholder="Categoria del TODO" required>
-            <button type="submit">Aggiungi TODO</button>
-        </form>
+    <h1>Gestione Todo</h1>
 
-        
-        <div class="filters">
-            <button id="showAll">Tutti</button>
-            <button id="showCompleted">Completati</button>
-            <button id="showNotCompleted">Non Completati</button>
-            <input type="text" id="filterCategory" placeholder="Categoria...">
-            <button id="filterByCategory">Filtra Categoria</button>
-        </div>
-
-        
-        <ul id="todoList" class="todo-list"></ul>
+    <!-- Sezione per aggiungere un nuovo Todo -->
+    <div class="todo-form">
+        <input type="text" id="todoTitle" placeholder="Titolo Todo" />
+        <select id="todoCategory">
+            <option value="">Seleziona Categoria</option>
+            <option value="Lavoro">Lavoro</option>
+            <option value="Casa">Casa</option>
+            <option value="Tempo libero">Tempo libero</option>
+        </select>
+        <button onclick="addTodoFromInput()">Aggiungi Todo</button>
     </div>
 
-    <script type="module" src="app.js"></script>
+    <!-- Sezione filtri -->
+    <div class="filters">
+        <button class="filter-button" onclick="applyFilter('all')">Tutti</button>
+        <button class="filter-button" onclick="applyFilter('completed')">Completati</button>
+        <button class="filter-button" onclick="applyFilter('notCompleted')">Non Completati</button>
+        <select id="categoryFilter" onchange="applyCategoryFilter(this.value)">
+            <option value="">Seleziona Categoria</option>
+            <option value="Lavoro">Lavoro</option>
+            <option value="Casa">Casa</option>
+            <option value="Tempo libero">Tempo libero</option>
+        </select>
+    </div>
+
+    <!-- Lista dei Todo -->
+    <div class="todo-list">
+        <!-- I Todo verranno visualizzati qui -->
+    </div>
+
+    <!-- Aggiungi il riferimento a app.js -->
+    <script src="app.js"></script>
 </body>
 </html>

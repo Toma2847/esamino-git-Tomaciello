@@ -1,41 +1,99 @@
 let todos = [];
 
-export const addTodo = (title, category) => {
+
+
+// Funzione per salvare i Todo nel localStorage
+const saveTodos = () => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+// Funzione per aggiungere un nuovo Todo
+const addTodo = (title, category) => {
+    if (!title || !category) {
+        alert("Per favore, inserisci un titolo e una categoria.");
+        return;
+    }
     const newTodo = {
-        id: todos.lenght + 1,
+        id: todos.length + 1, // Generiamo un ID univoco per ogni Todo
         title: title,
         category: category,
-        completed: false,
-    }
+        completed: false, // Di default, un Todo non è completato
+    };
     todos.push(newTodo);
-    return newTodo;
-}
+    saveTodos(); // Salviamo nel localStorage
+    renderTodos(todos); // Rendi visibili i Todo
+};
 
-export const deleteTodo = (id) => {
+// Funzione per gestire l'aggiunta dei Todo tramite l'input
+const addTodoFromInput = () => {
+    const title = document.getElementById('todoTitle').value;
+    const category = document.getElementById('todoCategory').value;
+    addTodo(title, category);
+
+    // Dopo aver aggiunto il Todo, puliamo i campi di input
+    document.getElementById('todoTitle').value = '';
+    document.getElementById('todoCategory').value = '';
+};
+
+// Funzione per eliminare un Todo dato l'id
+const deleteTodo = (id) => {
     const index = todos.findIndex(todo => todo.id === id);
-    if(index !== -1) {
-        const deletedTodo = todos.splice(index, 1);
-        return deletedTodo[0];
+    if (index !== -1) {
+        todos.splice(index, 1);
+        saveTodos(); // Salviamo nel localStorage
+        renderTodos(todos); // Rendi visibili i Todo
     }
-    return null;
-}
+};
 
-export const toggleComplete = (id) => {
+// Funzione per cambiare lo stato di completamento di un Todo
+const toggleComplete = (id) => {
     const todo = todos.find(todo => todo.id === id);
-    if(todo){
+    if (todo) {
         todo.completed = !todo.completed;
-        return todo;
+        saveTodos(); // Salviamo nel localStorage
+        renderTodos(todos); // Rendi visibili i Todo
     }
-    return null;
-}
+};
 
-export const filterTodos=(filterType)=> {
+// Funzione per filtrare i Todo
+const applyFilter = (filterType) => {
+    let filteredTodos;
     if (filterType === 'completed') {
-        return todos.filter(todo => todo.completed);
+        filteredTodos = todos.filter(todo => todo.completed);
     } else if (filterType === 'notCompleted') {
-        return todos.filter(todo => !todo.completed);
-    } else if (filterType === 'category') {
-        return (category) => todos.filter(todo => todo.category === category);
+        filteredTodos = todos.filter(todo => !todo.completed);
+    } else {
+        filteredTodos = todos;
     }
-    return todos;
-}
+    renderTodos(filteredTodos);
+};
+
+// Funzione per filtrare i Todo per categoria
+const applyCategoryFilter = (category) => {
+    const filteredTodos = category ? todos.filter(todo => todo.category === category) : todos;
+    renderTodos(filteredTodos);
+};
+
+// Funzione per visualizzare i Todo
+const renderTodos = (filteredTodos) => {
+    const todoListContainer = document.querySelector('.todo-list');
+    todoListContainer.innerHTML = ''; // Pulisce la lista esistente
+
+    filteredTodos.forEach(todo => {
+        const todoElement = document.createElement('div');
+        todoElement.classList.add('todo-item');
+        if (todo.completed) {
+            todoElement.classList.add('completed');
+        }
+        todoElement.innerHTML = `
+            ${todo.title} (${todo.category})
+            <button onclick="toggleComplete(${todo.id})">${todo.completed ? 'Non Completato' : 'Completato'}</button>
+            <button onclick="deleteTodo(${todo.id})">Elimina</button>
+        `;
+        todoListContainer.appendChild(todoElement);
+    });
+};
+
+// Carica e visualizza i Todo iniziali
+
+renderTodos(todos);
