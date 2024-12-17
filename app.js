@@ -101,6 +101,18 @@ const renderTodos = (filteredTodos) => {
     });
 };
 
+// Funzione per modificare titolo e categoria di un TODO
+export const editTodo = (id, newTitle, newCategory) => {
+    const todoItem = todos.find(todo => todo.id === id);
+    if (todoItem) {
+        todoItem.title = newTitle ?? todoItem.title;           // Modifica il titolo solo se fornito
+        todoItem.category = newCategory ?? todoItem.category;  // Modifica la categoria solo se fornita
+        return todoItem; 
+    }
+    return null;
+}
+
+
 // Carica e visualizza i Todo iniziali
 todos = loadTodos();
 renderTodos(todos);
